@@ -13,10 +13,12 @@ def shortest_shortest_path(graph, source):
       (shortest path weight, shortest path number of edges). See test case for example.
     """
     distance = {}
+    smallestsol = {}
     for vertex in graph:
         distance[vertex] = (float('inf'), 0)
     
     distance[source] = (0, 0)
+
     
     #need to iterate through all the connections
     for node in graph:
@@ -24,7 +26,11 @@ def shortest_shortest_path(graph, source):
         for connection in connections:
             if distance[node][0] + connection[1] < distance[connection[0]][0]:
                 distance[connection[0]] = (distance[node][0] + connection[1], distance[node][1] + 1)
+            if distance[node][0] + connection[1] == distance[connection[0]][0]:
+                if distance[node][1] + 1 < distance[connection[0]][1]:
+                    distance[connection[0]] = (distance[node][0] + connection[1], distance[node][1] + 1)
     
+
     return distance
 
                
