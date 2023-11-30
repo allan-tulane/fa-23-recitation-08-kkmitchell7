@@ -15,8 +15,6 @@ b) What is the work and span of your algorithm?
 **put in answers.md**
 
 .  
-.  
-.  
 
 
 .  

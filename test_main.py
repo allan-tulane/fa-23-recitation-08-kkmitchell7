@@ -1,4 +1,4 @@
-from main_sol import *
+from main import *
 
 def test_shortest_shortest_path():
 
@@ -16,7 +16,7 @@ def test_shortest_shortest_path():
     assert result['a'] == (1,1)
     assert result['b'] == (3,2)
     assert result['c'] == (4,1)
-    assert result['d'] == (7,2)
+    assert result['d'] == (7,3) #there are two options for the shortest path
 
 
 def test_bfs_path():

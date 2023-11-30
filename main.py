@@ -1,5 +1,5 @@
 from collections import deque
-from heapq import heappush, heappop 
+from heapq import heappush, heappop, heapify
 
 def shortest_shortest_path(graph, source):
     """
@@ -12,10 +12,22 @@ def shortest_shortest_path(graph, source):
       a dict where each key is a vertex and the value is a tuple of
       (shortest path weight, shortest path number of edges). See test case for example.
     """
-    ### TODO
-    pass
+    distance = {}
+    for vertex in graph:
+        distance[vertex] = (float('inf'), 0)
     
+    distance[source] = (0, 0)
+    
+    #need to iterate through all the connections
+    for node in graph:
+        connections = graph[node]
+        for connection in connections:
+            if distance[node][0] + connection[1] < distance[connection[0]][0]:
+                distance[connection[0]] = (distance[node][0] + connection[1], distance[node][1] + 1)
+    
+    return distance
 
+               
     
     
 def bfs_path(graph, source):
@@ -24,8 +36,23 @@ def bfs_path(graph, source):
       a dict where each key is a vertex and the value is the parent of 
       that vertex in the shortest path tree.
     """
-    ###TODO
-    pass
+    pathtree = {}
+    distance = {}
+    for vertex in graph:
+        distance[vertex] = float('inf')
+    
+    distance[source] = 0
+
+    #need to assign weight 1 to each vertex
+    
+    #need to iterate through all the connections
+    for node in graph:
+        connections = graph[node]
+        for connection in connections:
+            if distance[node] < distance[connection]:
+                distance[connection] = distance[node] + 1
+                pathtree[connection] = node
+    return pathtree
 
 def get_sample_graph():
      return {'s': {'a', 'b'},
@@ -43,6 +70,18 @@ def get_path(parents, destination):
       The shortest path from the source node to this destination node 
       (excluding the destination node itself). See test_get_path for an example.
     """
-    ###TODO
-    pass
+    shortestpath = ''
+    currdest = destination
+    contloop = True
+    
+    #need to iterate through until we reach the source node
+    while contloop == True:
+      contloop = False
+      for key in parents:
+          if key == currdest:
+              shortestpath += parents[key]
+              currdest = parents[key]
+              contloop = True
+    
+    return shortestpath[::-1]
 
